@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"syscall"
 )
 
 const (
@@ -20,10 +19,10 @@ func NewScanner(r io.Reader) *bufio.Scanner {
 	return s
 }
 
-// ReadFile opens a file with O_NOFOLLOW to prevent symlink races, then
+// ReadFile opens a file with symlink protection (O_NOFOLLOW on Unix),
 // validates size before reading. Returns an error for symlinks or oversized files.
 func ReadFile(path string) ([]byte, error) {
-	f, err := os.OpenFile(path, os.O_RDONLY|syscall.O_NOFOLLOW, 0)
+	f, err := openNoFollow(path)
 	if err != nil {
 		return nil, err
 	}

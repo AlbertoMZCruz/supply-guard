@@ -1,0 +1,85 @@
+version: 2
+
+project_name: supply-guard
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: supply-guard
+    main: ./cmd/supply-guard
+    binary: supply-guard
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/AlbertoMZCruz/supply-guard/internal/version.Version={{.Version}}
+      - -X github.com/AlbertoMZCruz/supply-guard/internal/version.Commit={{.Commit}}
+      - -X github.com/AlbertoMZCruz/supply-guard/internal/version.Date={{.Date}}
+
+archives:
+  - id: default
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+
+checksum:
+  name_template: 'checksums.txt'
+
+dockers:
+  - image_templates:
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-amd64"
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.title=supply-guard"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.source=https://github.com/AlbertoMZCruz/supply-guard"
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: amd64
+  - image_templates:
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-arm64"
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.title=supply-guard"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.source=https://github.com/AlbertoMZCruz/supply-guard"
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: arm64
+
+docker_manifests:
+  - name_template: "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}"
+    image_templates:
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-amd64"
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-arm64"
+  - name_template: "ghcr.io/albertomzcruz/supply-guard:latest"
+    image_templates:
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-amd64"
+      - "ghcr.io/albertomzcruz/supply-guard:{{ .Version }}-arm64"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - '^chore:'

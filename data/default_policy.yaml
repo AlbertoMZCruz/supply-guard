@@ -1,0 +1,64 @@
+rules:
+  - id: no-install-scripts
+    description: "Block packages with postinstall/preinstall scripts"
+    severity: high
+    enabled: true
+
+  - id: require-lockfile
+    description: "Require a lockfile for every detected ecosystem"
+    severity: critical
+    enabled: true
+
+  - id: dependency-age
+    description: "Flag dependencies published less than N days ago"
+    severity: medium
+    enabled: true
+    config:
+      min_age_days: 7
+
+  - id: no-phantom-deps
+    description: "Flag dependencies in package.json not imported in source code"
+    severity: low
+    enabled: true
+
+  - id: block-known-malicious
+    description: "Block known malicious packages from IOC database"
+    severity: critical
+    enabled: true
+
+  - id: typosquatting-check
+    description: "Flag packages with names similar to popular packages"
+    severity: high
+    enabled: true
+    config:
+      max_distance: 2
+
+  - id: hardened-config
+    description: "Require hardened package manager configuration"
+    severity: medium
+    enabled: true
+
+  - id: actions-sha-pinning
+    description: "Require GitHub Actions pinned by SHA"
+    severity: high
+    enabled: true
+
+  - id: no-network-calls
+    description: "Flag network calls and exec APIs in build/install scripts"
+    severity: high
+    enabled: true
+
+  - id: version-range-permissiveness
+    description: "Flag permissive or unbounded version ranges"
+    severity: medium
+    enabled: true
+
+  - id: ci-install-audit
+    description: "Flag unsafe install commands in CI workflows"
+    severity: high
+    enabled: true
+
+  - id: provenance-verification
+    description: "Flag missing integrity hashes and provenance attestations"
+    severity: medium
+    enabled: true

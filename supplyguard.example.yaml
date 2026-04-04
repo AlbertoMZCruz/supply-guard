@@ -1,0 +1,71 @@
+# SupplyGuard Configuration
+# Copy to your project root as 'supplyguard.yaml'
+# Docs: https://github.com/AlbertoMZCruz/supply-guard
+
+# Output format: table, json, sarif
+output: table
+
+# Fail CI when findings match these severities
+# Uncomment for CI usage:
+# fail_on:
+#   - critical
+#   - high
+
+# Ecosystems to scan (auto-detected by default)
+ecosystems:
+  npm:
+    enabled: true
+  pip:
+    enabled: true
+  cargo:
+    enabled: true
+  nuget:
+    enabled: true
+  maven:
+    enabled: true
+  gradle:
+    enabled: true
+
+# Check-specific configuration
+checks:
+  # Minimum age (days) before adopting a new dependency version
+  # A 7-day cooldown prevents 80% of supply chain attacks
+  dependency_age_days: 7
+
+  # Version range strictness: exact, conservative, permissive
+  version_range_strictness: conservative
+
+  # Disable entire checks by ID:
+  #   SG001 - Lockfile integrity
+  #   SG002 - Install script detection
+  #   SG003 - IOC match (includes suspicious maintainer emails)
+  #   SG004 - Dependency age
+  #   SG005 - Phantom dependencies
+  #   SG006 - Typosquatting
+  #   SG007 - Provenance verification
+  #   SG008 - Config hardening
+  #   SG009 - GitHub Actions pinning
+  #   SG010 - Network call detection
+  #   SG011 - Version range permissiveness
+  #   SG012 - CI install audit
+  # disabled:
+  #   - SG005
+
+# Ignore packages entirely (suppresses ALL checks for these packages)
+# ignore:
+#   - some-internal-package
+#   - legacy-dependency
+
+# Granular ignore rules (all non-empty fields must match)
+# ignore_rules:
+#   - check: SG002          # only suppress install script findings
+#     package: esbuild       # only for this package
+#     reason: "trusted build tool"
+#
+#   - check: SG009
+#     file: ".github/workflows/sonarcloud.yml"
+#     reason: "pinning managed by Renovate"
+#
+#   - check: SG005
+#     package: tslib
+#     reason: "required by Angular at runtime"

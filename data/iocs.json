@@ -1,0 +1,67 @@
+{
+  "version": "2026-04-03",
+  "malicious_packages": {
+    "npm": [
+      {"name": "plain-crypto-js", "reason": "Axios supply chain attack - RAT payload via postinstall", "date": "2026-03-31", "ref": "https://socket.dev/blog/axios-compromise-2026"},
+      {"name": "event-stream-fork", "reason": "Credential stealer targeting cryptocurrency wallets", "date": "2025-11-15"},
+      {"name": "colors-2", "reason": "Typosquat of colors package - data exfiltration", "date": "2025-09-20"},
+      {"name": "node-ipc-2", "reason": "Protestware variant - destructive payload", "date": "2025-08-10"},
+      {"name": "caw-sdk", "reason": "Part of 'claw' typosquatting campaign - 1000+ packages", "date": "2026-02-15"},
+      {"name": "caw-utils", "reason": "Part of 'claw' typosquatting campaign", "date": "2026-02-15"},
+      {"name": "caw-core", "reason": "Part of 'claw' typosquatting campaign", "date": "2026-02-15"},
+      {"name": "caw-ai", "reason": "Part of 'claw' typosquatting campaign", "date": "2026-02-15"},
+      {"name": "caw-crypto", "reason": "Part of 'claw' typosquatting campaign", "date": "2026-02-15"},
+      {"name": "chalks", "reason": "Typosquat of chalk - credential stealer", "date": "2025-09-01"},
+      {"name": "crossenv", "reason": "Typosquat of cross-env - credential stealer", "date": "2025-07-20"},
+      {"name": "lodahs", "reason": "Typosquat of lodash - cryptominer", "date": "2025-06-15"},
+      {"name": "expres", "reason": "Typosquat of express - reverse shell", "date": "2025-05-10"}
+    ],
+    "pip": [
+      {"name": "litellm-proxy", "reason": "TeamPCP campaign - .pth file auto-execution backdoor", "date": "2026-03-24", "ref": "https://socket.dev/blog/teampcp-campaign"},
+      {"name": "telnyx-api", "reason": "TeamPCP campaign - credential stealer", "date": "2026-03-27"},
+      {"name": "reqeusts", "reason": "Typosquat of requests - data exfiltration", "date": "2025-11-01"},
+      {"name": "python-dateuti1", "reason": "Typosquat of python-dateutil - cryptominer", "date": "2025-10-15"},
+      {"name": "beautifulsoup", "reason": "Typosquat of beautifulsoup4 - reverse shell", "date": "2025-09-20"},
+      {"name": "colorsama", "reason": "Typosquat of colorama - credential stealer", "date": "2025-08-05"},
+      {"name": "djang0", "reason": "Typosquat of django - backdoor", "date": "2025-07-01"}
+    ],
+    "cargo": [
+      {"name": "rustls-pemfile-fork", "reason": "Fake fork with credential stealer", "date": "2025-12-01"}
+    ],
+    "nuget": [
+      {"name": "Newtonsoft.Json.Extended", "reason": "Typosquat of Newtonsoft.Json", "date": "2025-11-10"}
+    ],
+    "maven": [
+      {"name": "com.google.guava.guava", "reason": "Dependency confusion attack", "date": "2025-10-20"}
+    ]
+  },
+  "c2_domains": [
+    "evilpackage.com",
+    "npm-stats-collector.xyz",
+    "registry-mirror-cdn.com",
+    "package-telemetry.io",
+    "node-analytics.net",
+    "pypi-mirror-fast.com",
+    "crate-registry.io",
+    "nuget-cache.com",
+    "maven-proxy-cdn.net",
+    "pkg-update-service.com",
+    "dependency-check.xyz",
+    "install-hook-cdn.com"
+  ],
+  "suspicious_maintainer_emails": [
+    "@protonmail.com+npm-publish",
+    "@tutanota.com+npm-publish"
+  ],
+  "compromised_versions": {
+    "npm": {
+      "axios": ["1.14.1", "0.30.4"],
+      "debug": ["4.3.5-compromised"],
+      "chalk": ["5.4.0-compromised"]
+    },
+    "pip": {
+      "litellm": ["1.55.8"],
+      "telnyx": ["2.1.4"]
+    }
+  }
+}

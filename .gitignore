@@ -1,0 +1,10 @@
+supply-guard
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+coverage.out
+*.test
+.DS_Store
+.cursor/
